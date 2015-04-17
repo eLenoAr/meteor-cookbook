@@ -1,20 +1,60 @@
-## Multi Page Example
+## MultiPage Example
 
 So, now that we've seen the pattern for a single-page, lets look at the multi-page example.
-##### File structure 
-````sh
-/client/views/page.home.less
-/client/views/page.about.less
-/client/models/page.home.html
-/client/models/page.about.html
-/client/controllers/page.home.js
-/client/controllers/page.about.js
+
+##### File structure  
+There are a few different approaches to organize files in a multi-page application.  
+
+````less
+// when we run `meteor create`, three files are made (MVC)
+/helloWorld.css
+/helloWorld.html
+/helloWorld.js
+
+
+// we usually then put those files into a client directory
+/client/helloWorld.css
+/client/helloWorld.html
+/client/helloWorld.js
+
+// adding a second page is as simple as replicating those files
+/client/homePage.less
+/client/homePage.html
+/client/homePage.js
+
+// and to organize things, people often create a directory
+// to keep the MVC of each component together
+/client/homePage/homePage.less
+/client/homePage/homePage.html
+/client/homePage/homePage.js
+/client/aboutPage/aboutPage.less
+/client/aboutPage/aboutPage.html
+/client/aboutPage/aboutPage.js
+
+// sometimes, however, people will organize by file extension
+// which naturally leads to stylesheet, template, and library directories
+
+/client/stylesheets/homePage.less
+/client/stylesheets/aboutPage.less
+/client/templates/homePage.html
+/client/templates/aboutPage.html
+/client/libraries/homePage.js
+/client/libraries/aboutPage.js
+
+// this structure is sometimes given a MVC naming convention
+// and you'll see naming structures like this
+/client/view/homePage.less
+/client/view/aboutPage.less
+/client/model/homePage.html
+/client/model/aboutPage.html
+/client/controller/homePage.js
+/client/controller/aboutPage.js
 ````
-
-See how the binomial nomenclature helps us organize our stylesheets in the views folder?  How it organizes DOM templates in the models folder?  And our libraries in our Controllers folder?  When we start adding headers, footers, blocks, sidebars, dialogs, and other UI components, this binomial nomenclature will keep everything nice and tidy.  
-
+The important thing to keep in mind when building your application is that there's no one *correct* way to organize your files.  Use whatever organization helps you be productive.  It's very common for an app to go back and forth between these different organization approaches as it grows or shrinks (ie. as packages are extracted from an app).  
  
 ##### The Document Object Model   
+So, lets dive into our two pages, and take a look at their object models.  The template tags are going to be invisible in the final rendered HTML, so we put an inner div with a unique ID (that's the same as the template name) inside of each template.  This is going to allow us to query the DOM component once it's written to our HTML.
+
 ````html
 <!-- /client/models/page.home.html -->
 <template name="homePage">
@@ -35,12 +75,12 @@ See how the binomial nomenclature helps us organize our stylesheets in the views
 </template>
 ````
 
-Now, we have nicely defined IDs for each page objects in our application.  This is going to be useful on a bunch of levels when we get to the views and page transitions, because we can now attach styling and animation rules directly to our page object.    
+Now that we have nicely defined IDs for each page objects in our application, we can start thinking about creating more complex views, by adding visibility rules, sizing rules, animations, and page transitions.  Those IDs will be the anchors that allow us to attach styling and animation rules directly to our page object.    
 
-As for the ``{{pageVisibiilty}}`` handlebars, we're going to do some cleverness in a bit that allows us to navigate pages, enable page transitions, and the like by adding ``.visible`` and ``.hidden`` classes.  
+As for the ``{{pageVisibility}}`` handlebars, we're going to do some cleverness in a bit that allows us to navigate pages, enable page transitions, and the like by adding ``.visible`` and ``.hidden`` classes.  
 
 ##### The View  
-````scss
+````less
 // client/views/app.layout.less
 // here, we've moved the .tagline to the global scope
 .page{
@@ -51,7 +91,7 @@ As for the ``{{pageVisibiilty}}`` handlebars, we're going to do some cleverness 
   color: gray;
 }
 .visible{
-  visibiilty: visible;
+  visibility: visible;
 }
 .hidden{
   visibility: hidden;
@@ -76,35 +116,41 @@ As for the ``{{pageVisibiilty}}`` handlebars, we're going to do some cleverness 
 The less compiler will take the above code, and compile it to ``#homePage h2`` and ``#aboutPage h2`` rules, which is fairly straight forward.  But that object nesting is super useful when creating more complex views; primarily because you can mimic your DOM structure.  
 
 
-##### The Controller   
-````js
-// client/views/page.home.js 
-Template.homePage.getText = function(){
- return "Hello World";
-}
-Template.homePage.pageVisibility = function(){
-  if(Session.get('active_page', 'home')){
-    return 'visible';
-  }else{
-    return 'hidden';
-  }
-}
-````
+
+##### Canvas Controller (Suitable for Video Games & Apps)
 
 So far, the controllers for a multipage app are fairly straightforward.  But now we're going to start doing something interesting.  
 
 ````js
 // client/views/page.about.js 
-Template.aboutPage.getText = function(){
- return "About This Site";
-}
-Template.aboutPage.pageVisibility = function(){
-  if(Session.get('active_page', 'about')){
-    return 'visible';
-  }else{
-    return 'hidden';
+Template.aboutPage.helpers({
+  getText: function(){
+    return "About This Site";
+  },
+  pageVisibility: function(){
+    if(Session.get('active_page', 'about')){
+      return 'visible';
+    }else{
+      return 'hidden';
+    }
   }
-}
+});
+````
+
+````js
+// client/views/page.home.js 
+Template.homePage.helpers({
+  getText: function(){
+    return "Hello World";
+  },
+  pageVisibility: function(){
+    if(Session.get('active_page', 'home')){
+      return 'visible';
+    }else{
+      return 'hidden';
+    }
+  }
+});
 ````
 
 See how we're adding classes to the pages based on Session state?  This is going to give very nice functionality down the line, as we toggled UI elements on and off in the page.  Specifically, we have a Controller that's adding different View classes to our Object Model, based on a Session state.
@@ -140,28 +186,27 @@ Nifty!  Now, all we need to do is go back to our template, and add some buttons.
 </template>
 ````
 
-So, our final file structure looks something like this:
-````sh
-/client/views/app.navbars.less
-/client/views/page.home.css
-/client/views/page.about.css
-/client/models/app.navbars.html
-/client/models/page.home.html
-/client/models/page.about.html
-/client/controllers/app.navbars.js
-/client/controllers/page.home.js
-/client/controllers/page.about.js
+
+##### Web App Controller   
+
+Alternatively, we could set the session variable by using a URL route.  
+````js
+Router.route('/home', function(){
+  Session.set('active_page', 'home')
+});
+Router.route('/about', function(){
+  Session.set('active_page', 'home')
+});
 ````
 
-Which you might want to refactor to look like so:
-````sh
-/client/views/page.home.css
-/client/views/page.about.css
-/client/models/page.home.html
-/client/models/page.about.html
-/client/controllers/page.home.js
-/client/controllers/page.about.js
-/client/app.navbars.less
-/client/app.navbars.html
-/client/app.navbars.js
+##### Web Page Controller   
+
+Or we could use a template, and let the router manage page state.  
+````js
+Router.route('/home', function(){
+  this.render('homePage');
+});
+Router.route('/about', function(){
+  this.render('aboutPage');
+});
 ````

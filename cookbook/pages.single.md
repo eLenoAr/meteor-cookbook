@@ -1,12 +1,12 @@
-## Single Page Example
+## SinglePage Example
 
 
 
 ##### File structure 
 ````sh
-/client/home/homePage.less
-/client/home/homePage.html
-/client/home/homePage.js
+/client/app/workflows/home/homePage.less
+/client/app/workflows/home/homePage.html
+/client/app/workflows/home/homePage.js
 ````
  
 ##### The Document Object Model    
@@ -43,14 +43,17 @@ But wait! you might be saying.  There's so much redundancy!  We've repeated the 
 }
 ````
 
-The controller is fairly straight forward.  
 ##### The Controller   
+The controller is fairly straight forward.  
+
 ````js
 // client/home/homePage.js 
-Template.homePage.getTitle = function(){
- return "Hello World";
-}
-Template.homePage.getText = function(){
- return "lorem ipsum, dolar sit amet...";
-}
+Template.homePage.helpers({
+  getTitle:function(){
+    return "Hello World";
+  },
+  getTitle:function(){
+    return "lorem ipsum, dolar sit amet...";
+  }
+});
 ````

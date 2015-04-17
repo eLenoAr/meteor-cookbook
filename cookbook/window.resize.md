@@ -5,7 +5,7 @@ I've found that the following pattern is the best way to handle orientationchang
 ````js
 Session.set("resize", null); 
 Meteor.startup(function () {
-  $(window).resize(function(evt) {
+  window.addEventListener('resize', function(){
     Session.set("resize", new Date());
   });
 });
@@ -47,7 +47,7 @@ $(window).resize(function(){
 ````
 
 #### define Chrome App window bounds
-And you can avoid programatic hacks by using a Chrome App, and defining the size of your apps explicitely.  
+And you can avoid programmatic hacks by using a Chrome App, and defining the size of your apps explicitly.  
 http://developer.chrome.com/apps/first_app.html
 
 ````js

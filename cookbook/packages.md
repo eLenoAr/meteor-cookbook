@@ -35,8 +35,7 @@ meteor remove nifty:widget
 ================================================
 #### Creating a Package for Distribution  
 
-So, there isn't an official documented API for creating packages, as far as I'm aware.  The best we can do is sort of document all of the api calls we've seen in the wild.  The following example illustrates all the different syntax we've seen in creating packages.
-
+For a long time, the package.js API was undocumented, and the following was an attempt to fill in the missing pieces of the documentation.  MDG has recently published an [official API for the package.js file](http://docs.meteor.com/#/full/packagejs), however, making the following documentation unnecessary.  It's being left in the cookbook for the time being, because it's been in here for ages.  But this section is liable to be removed at some point in the future.
 
 ````js
 // package.js  
@@ -53,7 +52,7 @@ Package.describe({
   name: "samplePackage",
   
   // and add this value if you want people to access your code from Atmosphere
-  git: "http://github.com/myaccount/nifty-widget"
+  git: "http://github.com/myaccount/nifty-widget.git"
 });
 
 // If you're bundling an NPM package, be sure to reference the package as a dependency
@@ -67,7 +66,7 @@ Package.onUse(function (api) {
   var path = Npm.require('path');
   
   // expose an object from an Npm package by first referencing it
-  Foo = Npm.require('sample_package');  
+  // Foo = Npm.require('sample_package');  
   
   // and then exporting it
   api.export('Foo');
@@ -104,6 +103,13 @@ Once all that is done, you should have a Foo object which you can now use in you
  // and now use the function like so:
  Foo.niftyFunction();  
 ````
+
+================================================
+#### Creating Configurable Packages  
+
+Nemo64 gets a gold-star for figuring out a really fantastic pattern for letting you configure which parts of a package you want installed via a .json configuration file.  Disect the meteor-bootstrap package for the pattern. 
+
+https://github.com/Nemo64/meteor-bootstrap/
 
 
 ================================================

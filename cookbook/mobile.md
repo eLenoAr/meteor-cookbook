@@ -2,39 +2,44 @@
 
 The holy grail of web-apps is a single code base across different platforms.  In theory, this will drastically reduced maintenance costs and consistency of user experience across devices.  In practice, we're not quite there yet, but getting close.  But to create such an application, there are a lot of steps that one has to go through.
 
+[How to Submit Your App to Apple from No Account to App  Store - Part 1  ](http://www.raywenderlich.com/8003/how-to-submit-your-app-to-apple-from-no-account-to-app-store-part-1)  
+[How to Submit Your App to Apple from No Account to App  Store - Part 2](http://www.raywenderlich.com/8045/how-to-submit-your-app-to-apple-from-no-account-to-app-store-part-2)  
+[Beta Testing Your iOS App](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/TestingYouriOSApp/TestingYouriOSApp.html)  
+[iTunesConnect](https://itunesconnect.apple.com)  
+
+
+
 =============================================
 #### Design Checklist
 
-- Do you need centralized hotcode pushes to all devices?  
-- Do you need to connect to device hardware?  
 - Are you targeting a specific platform?  
-- Will this app be inhouse or public?  
-- Will this app be in an appstore?  
+- Do you need to connect to device hardware?  
 - Do you want to run it on the desktop as an app?  
-- Do you need native quality UI widgets and scrolling?
+- Will this app be in an appstore?  
+- Will this app be inhouse or public?  
 - Which screen sizes do you want this app to run on?  
+- Do you need native quality UI widgets and scrolling?
+- Do you need centralized hotcode pushes to all devices?  
 
 
 =============================================
 #### Page Layout on Different Devices - CSS
 
-First of all, if your application is going to run on different devices, it's going to need to render each 'view' differently, based on the device size.  You can deal with this in two ways:  with javascript rules, or CSS media styles.  
+First of all, if your application is going to run on different devices, it's going to need to render to different ViewPorts, based on the device size.  You can deal with this in two ways:  with javascript rules, or CSS media styles.  If you've been using a MVC or MVVM library, such as Angular or Ember (or Blaze, for that matter) and have only been targeting a single device or hardware platform, you may need to rethink your MVC model as different hardware ViewPorts are introduced to your application.
 
-````css
+````less
 //----------------------------------------------------
+
+// desktop 
+@media only screen and (min-width: 960px) {
+}
 
 // landscape orientation
 @media only screen and (min-width: 768px) {
-
 }
 
 // portrait orientation
-@media only screen and (max-width: 768px) {
-  #homePage{
-    //...
-  }
-}
-@media only screen and (max-width: 480px) {
+@media only screen and (min-width: 480px) {
 }
 
 ````
@@ -59,98 +64,20 @@ $(window).resize(function(){
 });
 ````
 
-=============================================
-#### 60fps Native Repsonse Widgets
-
-If you want 60fps native response in your widgets, animations, and page transitions, you're going to need to override the CSS rendering subsystem with a library like Famo.us (or Google Polymer).  
-
-````sh
-mrt add famono
-mrt add famono-components
-````
-
-[Meteor-Cordova-Famous - The Chill Way To Build Apps](https://www.discovermeteor.com/blog/meteor-cordova-famous-the-chill-way-to-build-apps/)  
-
-=============================================
-#### Famo.us Style Page Transitions
-
-You'll then need to use Famo.us to do things like render page transitions, which should look something like this:  
-
-````html
-{{#RenderController}}
-  {{> yield}}
-{{/RenderController}}
-
-<template name="rc_surface1">
-  {{#Surface class="red-bg" origin="[0,0]" size="[75,150]"}}
-    <div class="full">#1</div>
-  {{/Surface}}
-</template>
-````
-
-````js
-Template.views_RenderController.helpers({
-  'showTemplate': function() {
-    return Template[this.name];
-  }
-});
-Session.setDefault('currentTemplate', 'rc_surface1');
-Template.views_RenderController.currentTemplate = function() {
-  return Session.get('currentTemplate');
-}
-Template.rc_buttons.events({
-  'click button': function(event, tpl) {
-    Session.set('currentTemplate', this.valueOf());
-  }
-});
-````
-
-=============================================
-#### IronRouter + Famo.us - URL Parsing and Triggering Template Rendering
-
-The next big issue in designing mobile apps is figuring out how to support the URL social contract and maintain fluid page-transitions.  Doing one or the other is easy.  Doing both URLs **and** page-transitions is difficult. You'll need to move away from subscribing to collections within the router function, because it will take too long for the data to be fetched.  Instead, do your data subscriptions in the root of your application, and use IronRouter to trigger Session variables that will trigger Famo.us to do page transitions.  
-
-````js
-// vanilla IronRouter pattern
-
-Router.map(function() {
-  this.route('postRoute', {
-    path: '/posts/:id',
-    template: 'postPage',
-    onBeforeAction: function() {
-      Session.set('selected_post', this.params.id);
-    },
-    waitOn: function() {
-      Meteor.subscribe('posts', this.params.id);
-    },
-    data: function() {
-      return Campaigns.findOne({ _id: this.params.id });
-    }
-  });
-});
-
-// IronRouter + Famo.us
-
-Router.map(function(){
-  this.route('postRoute', {
-    path: '/posts/:id',
-    onBeforeAction: function() {
-      Session.set('selected_post', this.params.id);
-      Session.set(‘currentTemplate’, ‘postPage’);
-    }
-  });
-});
-````
 
 #### Offline Caching  
 To get all of this to work, you'll probably need offline support, which means caching application data and user data.
 
 ````sh
-sudo mrt add appcache
-sudo mrt add grounddb
+meteor add appcache
+meteor add grounddb
 ````
 
+For more information, see the [Offline Apps](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/offline.md) section of the Cookbook.
+
 #### Disable Scroll-Bounce
+
+On desktop apps, you may want to disable scroll-bounce, to give your app a more native feel.  You can do this with javascript, by disabling how the browser controls the DOM:   
 
 ````js
 // prevent scrolling on the whole page
@@ -162,50 +89,101 @@ document.ontouchmove = function(e) {e.preventDefault()};
 scrollableDiv.ontouchmove = function(e) {e.stopPropagation()};
 ````
 
+Alternatively, you can use css, and the ``overflow`` and ``scrolling`` styles.  
 
+````less
+#appBody {
+  overflow: hidden;
+}
+
+#contentContainer {
+  .content-scrollable {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+````
+
+The object model needed for the above to work looks something like this:  
+````html
+<div id="appBody">
+  <div id="contentContainer">
+    <div class="content-scrollable">
+      <!-- content -->
+    </div>
+  </div>
+</div>
+````
 
 =============================================
 #### Multitouch & Gestures
 
-[FastClick](https://github.com/ftlabs/fastclick)  
-
-
-
-=============================================
-#### PhoneGap Configuration with X-Code
-
-As you get ready to deploy your PhoneGap application, you'll probably want to tweak the X-Code configuration settings a bit.  Usually this involves tweaking the architecture, and disabling UIWebViewBounce.
+Mobile devices generally don't have keyboards, so you'll need to add some haptic controllers to your application.  The two popular packages that people seem to be using is [FastClick](https://github.com/ftlabs/fastclick) and [Hammer](https://atmospherejs.com/hammer/hammer).  Installation is easy.
 
 ````sh
-# terminal commands in osx to build a phonegap app
-cd phonegap-master/
-cd lib/ios/bin/
-./create ~/Documents/Cordova/TodosApp com.pentasyllabic.TodosAdd TodosApp
+meteor add fastclick
+meteor add hammer:hammer
 ````
 
-Once set up, configure your X-Code project.  
-````sh
-architecture ``armv7 armv7s``  
-````
+FastClick requires nearly no configuration, while Hammer requires a bit of work to wire up.  The cononical example from the Todos app looks like this:
 
-And edit the project Cordova/TodosApp/config.xm file.  
-````html
-<preference name="UIWebViewBounce" value="false" />
+````js
+Template.appBody.rendered = function() {
+  if (Meteor.isCordova) {
+    // set up a swipe left / right handler
+    this.hammer = new Hammer(this.find('#appBody'));
+    this.hammer.on('swipeleft swiperight', function(event) {
+      if (event.gesture.direction === 'right') {
+        Session.set(MENU_KEY, true);
+      } else if (event.gesture.direction === 'left') {
+        Session.set(MENU_KEY, false);
+      }
+    });
+  }
+};
 ````
-
 
 =============================================
-#### Stand-Alone Blaze  
+#### Create your Icons and Splash Screen Assets  
 
-Once you have your application all built, you'll need to bundle it into a PhoneGap wrapper.  We used to have to use iFrames to do this, but now that Stand-Alone Blaze has been released, we have a new option for creating Mobile Apps.  
-http://meteor.github.io/blaze/
+Before you compile your app and run it on your device, you'll need create some icons and splash screens, and add a ``mobile-config.js`` file to your app.
 
-If you only want to bundle front-end client files, use the Meteor Export Packages script.  
-https://github.com/alexhancock/meteor-export-packages
+````js
+App.icons({
+  // iOS
+  'iphone': 'resources/icons/icon-60x60.png',
+  'iphone_2x': 'resources/icons/icon-60x60@2x.png',
+  'ipad': 'resources/icons/icon-72x72.png',
+  'ipad_2x': 'resources/icons/icon-72x72@2x.png',
 
-Early examples of pipelines for extracting front end files and including them in PhoneGap.  We'll be updating this more. 
-https://github.com/meteor/standalone-blaze-generator  
-https://github.com/merunga/cordova-meteor-mashup  
+  // Android
+  'android_ldpi': 'resources/icons/icon-36x36.png',
+  'android_mdpi': 'resources/icons/icon-48x48.png',
+  'android_hdpi': 'resources/icons/icon-72x72.png',
+  'android_xhdpi': 'resources/icons/icon-96x96.png'
+});
+
+App.launchScreens({
+  // iOS
+  'iphone': 'resources/splash/splash-320x480.png',
+  'iphone_2x': 'resources/splash/splash-320x480@2x.png',
+  'iphone5': 'resources/splash/splash-320x568@2x.png',
+  'ipad_portrait': 'resources/splash/splash-768x1024.png',
+  'ipad_portrait_2x': 'resources/splash/splash-768x1024@2x.png',
+  'ipad_landscape': 'resources/splash/splash-1024x768.png',
+  'ipad_landscape_2x': 'resources/splash/splash-1024x768@2x.png',
+
+  // Android
+  'android_ldpi_portrait': 'resources/splash/splash-200x320.png',
+  'android_ldpi_landscape': 'resources/splash/splash-320x200.png',
+  'android_mdpi_portrait': 'resources/splash/splash-320x480.png',
+  'android_mdpi_landscape': 'resources/splash/splash-480x320.png',
+  'android_hdpi_portrait': 'resources/splash/splash-480x800.png',
+  'android_hdpi_landscape': 'resources/splash/splash-800x480.png',
+  'android_xhdpi_portrait': 'resources/splash/splash-720x1280.png',
+  'android_xhdpi_landscape': 'resources/splash/splash-1280x720.png'
+});
+````
 
 
 
@@ -215,26 +193,84 @@ https://github.com/merunga/cordova-meteor-mashup
 
 Okay, now it's time to finally bust out the [Meteor Cordova Phonegap Integration](https://github.com/meteor/meteor/wiki/Meteor-Cordova-Phonegap-integration) documentation.  
 
+Since that documentation was written, XCode and Yosemite have been released, which has caused some hiccups in installation.  Here are the steps we had to go through to get Meteor compiled to an iOS device.
+
+1.  Upgrade to Yosemite.
+2.  Delete XCode (drag from Applications folder to Trashcan)
+3.  Install XCode 6.1 from app store.  
+4.  Agree to various terms and conditions.
+
 ````sh
+# 5.  clone and rebuild the ios-sim locally
+#     (this step will not be needed in future releases)
+git clone https://github.com/phonegap/ios-sim.git
+cd ios-sim
+rake build
+
+# 6.  make sure we can update the .meteor/packages locations
+#     (this step will not be needed in future releases)
+sudo chmod -R 777 ~/.meteor/packages
+
+# 7.  copy the new build into Meteor locations
+#     (this step will not be needed in future releases)
+for i in `find ~/.meteor/packages/meteor-tool/ -name ios-sim -type f`; do
+  cp -R ./build/Release/ios-sim "$i"
+done
+
+# 8.  install the ios platform to your app
+cd myapp
 meteor list-platforms
 meteor add-platform ios
 meteor list-platforms
+
+# 9.  and that there aren't dead processes
+ps -ax 
+kill -9 <pid>
+# /Users/abigailwatson/.meteor/packages/meteor-tool/.1.0.35.wql4jh++os.osx.x86_64+web.browser+web.cordova/meteor-tool-os.osx.x86_64/dev_bundle/mongodb/bin/mongod
+# tail -f /Users/abigailwatson/Code/Medstar/dart/webapp/.meteor/local/cordova-build/platforms/ios/cordova/console.log
+
+# 10.  make sure there are correct permissions on the application (important!)
+sudo chmod -R 777 .meteor/local/
+
+# 11.  run app
 meteor run ios
+
+# 12.  if that doesn't work, clear the directory
+sudo rm -rf .meteor/local
+
+# 13a.  run meteor again to create the default browser build
+meteor
+
+# 13b.  run it a second time so bootstrap and other packages get downloaded into the browser build
+ctrl-x
+meteor
+
+# 14.  then run the ios version
+ctrl-x
+meteor run ios
+
 ````
 
+XCode should launch during the process.  Select your simulator and press the 'Play' button.  
 
 
 =============================================
-#### Project Configuration for iFrame Method
-Alternatively, if you're willing to manage cross-site security and want hot-code updates for your mobile apps, you'll want to use the iFrames approach.  This requires editing the CDVViewController.m file, and tell PhoneGap to access an external website to get it's www directory.  
+#### IOS Development  
 
-````Obj-C
-    // CordovaLib.xcodeproj > Classes > Cleaver > CDVViewController.m  
-    //self.wwwFolderName = @"www";
-    self.wwwFolderName = @"http://todos.meteor.com";
-    self.startPage = delegate.startPage;
-    if (self.startPage == nil) {
-        self.startPage = @"index.html";
-    }
-````
+- Register your Apple Developer Account  
+- Register an App ID for your app
+- Register the UUID of your testing devices
+- Generate an iOS App Development provisioning profile
+  - Generate a CertificateSigningRequest from KeychainAccess
+  - Submit CertificateSigningRequest to https://developer.apple.com/account/ios/profile/profileCreate.action
+  - Download and doubleclick the certificate to import into Keychain
+- Go to XCode > Preferences > Accounts and register your Apple Developer Account
+
+=============================================
+#### IOS Device Testing  
+
+-  Make sure your development workstation and iPhone are connected to the same WiFi network.  Tethering, hotspots, and other ad-hoc networking won't work.    
+-  Run ``sudo meteor run ios-device``  
+-  Deploy to your device!  
+  
 

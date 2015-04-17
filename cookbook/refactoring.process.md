@@ -1,5 +1,5 @@
 ## Refactoring Process
-The following is a brief outline of the process of refactoring.  If you're an experienced programmer, this will be second-nature to you already.  If you're only recently finding yourself writting larger programs that need refactoring, I hope this little reference gives you an overview of what refactoring feels like.  
+The following is a brief outline of the process of refactoring.  If you're an experienced programmer, this will be second-nature to you already.  If you're only recently finding yourself writing larger programs that need refactoring, I hope this little reference gives you an overview of what refactoring feels like.  
 
 
 #### A)  meteor create helloWorld
@@ -167,7 +167,7 @@ helloWorld/
 ````
 
 #### G)  Prepare it for Publications  
-And then adding the necessary ``package.js`` and ``smart.json`` files to publish it.  
+And then adding the necessary ``package.js`` file to publish it.  
 ````
 helloWorld/
   client/
@@ -185,7 +185,6 @@ helloWorld/
       coolWidget.js  
       coolWidget.css  
       package.js
-      smart.json
   server/
     methods.js
 ````
@@ -198,7 +197,6 @@ coolWidget/
   coolWidget.js  
   coolWidget.css  
   package.js
-  smart.json
 ````
 
 

@@ -23,7 +23,7 @@ Test driven development is summarized by the phrase "Red, Green, Refactor".  Ill
 #### TinyTest  
 
 
-Meteor provides built in unit-testing through the [tinytest packages](https://github.com/meteor/meteor/tree/devel/packages/tinytest).  As of Meteor 0.9.x, using Tinytest to add unit tests to your application begings with the following steps. 
+Meteor provides built in unit-testing through the [tinytest packages](https://github.com/meteor/meteor/tree/devel/packages/tinytest).  As of Meteor 0.9.x, using Tinytest to add unit tests to your application begins with the following steps. 
 
 ````sh
 cd myapp
@@ -31,7 +31,7 @@ cd myapp
 # create your package of unit tests
 mkdir packages
 cd packages
-meteor create --packages quality-control
+meteor create --package quality-control
 cd ..
 
 # add tinytest to your app
@@ -66,12 +66,16 @@ terminal-a$  meteor add clinical:nightwatch
 # Go to the root of your application
 terminal-a$ cd myappdir
 
+# Option 1 - Test Runner
 # run the leaderboard application
 terminal-a$ meteor
 
-# In the same way that we run 'meteor mongo' in a separate terminal while our application is already running,
-# we want to open up a new terminal, and run nightwatch
-terminal-b$ ln -s .meteor/local/build/programs/server/assets/packages/clinical_nightwatch/launch_nightwatch_from_app_root.sh run_nightwatch.sh
+# Option 2 - Continous Integration Mode
+# or run it from command line in Continuous Integration mode
+terminal-a$ VELOCITY_CI=true meteor --test
+
+# Option 3 - Launch Script
+# For the most granular control, use the launch script.  In the same way that we run 'meteor mongo' in a separate terminal while our application is already running, we'll want to open up a new terminal, and run nightwatch
 terminal-b$ sudo ./run_nightwatch.sh
 
 # you might want to do something clever like pass in arguments and run specific tests
@@ -114,8 +118,11 @@ The following tools are first-generation testing frameworks.  They represent a l
 
 Load testing is a cousin to unit-testing and acceptance testing, and involves driving large amounts of test traffic to a server, to see how an application performs under load.  This is a topic that's being actively researched and developed in the Meteor community, as many apps are going into production.  
 
-Using PhantomJS  
-https://gist.github.com/awatson1978/5139909  
+Meteor Down
+https://github.com/meteorhacks/meteor-down
+
+Using PhantomJS/CasperJS
+https://github.com/yauh/meteor-parties-stresstest 
 
 Load Testing on AWS  
 https://groups.google.com/forum/?fromgroups=#!searchin/meteor-talk/load$20test/meteor-talk/BJXA1FRuTzU/M2e9pCH4es0J  

@@ -1,5 +1,8 @@
 ## Image Assets  
 
+[Background Images and Wallpapers](http://hdwallsource.com/)  
+[Subtle Patterns](http://subtlepatterns.com/)  
+[Webtexture.net](http://www.webtexture.net/)  
 
 ==========================================
 #### Adding Image Assets via Packages
@@ -23,7 +26,18 @@ body{
   -o-background-size: cover;
   background-size: cover;
 }
+
+.coverImage{
+  object-fit: cover;
+}
 ````
+
+````html
+<img src="http://www.mywebsite.com/images/foo.jpt" class="coverImage" alt="foo image" />
+````
+
+
+
 
 ==========================================
 #### Parallax Images  

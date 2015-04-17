@@ -1,141 +1,103 @@
 ##Meteor Cookbook  
 
-Hi.  Welcome to the Meteor Cookbook; a FAQ and tutorial culled and currated from over 18 months of emails and discussions from the [meteor] google group and my experiences rolling out packages and apps.  These documents are intended for the intermediate user learning Meteor, who is accustomed to a) object-oriented frameworks and languages, such as Java and C#, and b) relational databases and data structures derived from SQL table schemas.  The focus is on helping the user grow accustomed to functional programming using document oriented databases.
+Hi.  Welcome to the Meteor Cookbook; a FAQ and tutorial culled and curated from over 2 years of emails and discussions from the [meteor] google group and my experiences rolling out packages and apps.  These documents are intended for the intermediate user learning Meteor, who is accustomed to a) object-oriented frameworks and languages, such as Java and C#, and b) relational databases and data structures derived from SQL table schemas.  The focus is on helping the user grow accustomed to functional programming using document oriented databases.  
 
 
-[Upgrading Apps and Packages to 0.9.2.2](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/upgrading-to-0.9.x.md)  
-
-
-## Index  
-
-- [Cookbook Conventions](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook-conventions.md)  
-- [General Advice](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/general-advice.md)  
-- Meteor Style Guide
-  - [Terminology](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/terminology.md)  
-  - [Syntax](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/syntax.md)  
-  - [Punctuation](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/punctuation.md)  
-  - [Reserved Keywords](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/reserved.keywords.md)  
-- [Installation](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/installation.md)  
-  - [Quickstart](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/quickstart.md)  
-  - [Development Tools](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/development-tools.md)  
-  - [Atom Editor](https://github.com/awatson1978/meteor-api)  
-  - [Webstorm IDE](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/webstorm.md)
-  - [Test Driven Development](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/test-driven-development.md)  
-    - [The Refactoring Process](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/refactoring.process.md)   
-    - [Refactoring Patterns](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/refactoring.patterns.md)  
-    - [Refactoring With Test Driven Development](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/refactoring.process.tdd.md)   
-    - [Writing Acceptance Tests (with Nightwatch)](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/writing.acceptance.test.md)  
-    - [Writing Unit Tests (with Tinytest)](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/writing.unit.tests.md)  
-    - [Writing Unit Tests (with Jasmine Unit and Velocity)](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/writing.unit.tests.with.jasmine.md)  
-- Site Mechanics
-    - [File Structure](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/filestructure.md)
-    - [Dependencies](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/dependencies.md)  
-    - [App Structure](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/appstructure.md) 
-      - [Non Standard Architectures](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/non-standard-architectures.md)     
-      - [Mobile Apps](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/mobile.md)  
-      - [Offline](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/offline.md)  
-    - [Event Cycle](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/event-cycle.md) 
-    - [Namespacing](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/namespacing.md) 
-    - [Packages](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/packages.md)  
-    - [Site Configuration](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/configuration.md)  
-    - [Console Logging](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/logging.md)  
-    - [Debugging](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/debugging.md)  
-    - [Performance Tuning](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/performance-tunning.md)  
-- [Environments](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/environments.md)  
-  - [Hosting Providers](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/hosting-providers.md) 
-  - [Deploying to Production](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/deploying.to.production.md)
-  - [Running in Production](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/environments-production.md)  
-  - [Environment Detection](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/environment-detection.md)  
-  - [Scaling Quickstart](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/scaling.md)  
-- [Data Layer](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/datalayer.md)  
-  - [Schema Design](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/schema-design.md)  
-  - [Collections](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/collections.md)  
-    - [User Accounts](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/accounts.md)  
-    - [Multi User Publications](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/ddp.multiuser.publications.md)    
-    - [Aggregation](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/aggregation.md)  
-    - [Filters](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/ddp.filters.md)  
-    - [Observers](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/observers.md)  
-  - [Schema Migrations](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/schema.changes.md)     
-  - [Data Validation](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/validation.md)  
-  - [Database Management](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/database-management.md)
-  - [Replica Sets](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/replica-sets.md)  
-  - [Horizontal Scaling](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/horizontal-scaling.md)  
-  - [Integrating 3rd Party Databases](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/orm.layers.md)  
-- [Routing](https://github.com/EventedMind/iron-router)
-  - [Single Page Design](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/pages.single.md)
-  - [Multi-Page Design](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/pages.multi.md)
-  - [Multi-Page with Routing](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/pages.multi.router.md)  
-  - [Page Not Found](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/routing.page-not-found.md)  
-- Meteor UI Components
-  - [Alerts & Errors](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/pages.alerts.md)  
-  - [Accordion](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/accordion.md)   
-  - [Modal Dialogs](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/pages.dialogs.md)
-  - [Tabbed Workflow](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/workflow.md)
-  - [Tagging](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/tagging.md)
-  - [Window Resize](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/window.resize.md)
-  - [Theming](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/theming.md)  
-- Application Programming Interfaces
-  - [Integration of 3rd party APIs](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/api-wrappers.md)
-  - [Exposing a REST API](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/rest.md)
-- Data Driven Documents (D3)  
-- [Error Referece](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/errors.md)  
-- [Recipes](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/recipes.md)  
-  - [Two-Way Data Binding](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/data-binding.md)  
-  - [Proxies](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/proxies.md)  
-  - [Email](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/email.md)  
-  - [File IO](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/fileio.md)  
-  - [Video IO](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/video.md)  
-  - [Keybindings](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/keybinding.md)  
-  - [Mutlitouch](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/multitouch.md)  
-  - [Image Assets](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/image-assets.md)  
-  - [Animations](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/animations.md)  
-  - [Async Workers](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/async-workers.md)  
-  - [File Uploads](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/file-uploads.md)  
-  - [Web Components and Card UI](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/card-ui.md)  
-  - Parsing File Types
-    - [XML](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/files.xml.md)   
-    - [CSV](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/files.csv.md)  
-- [Breaking Changes](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/breaking-news.md)  
-- [Recommended Packages](https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/packages-we-love.md)  
+========================================
+###[TABLE OF CONTENTS](https://github.com/awatson1978/meteor-cookbook/blob/master/table-of-contents.md)  
 
 
 
-
-##Applet Demos
+========================================
+###Applet Demos  
 Links to live versions of the examples associated with this cookbook.  
+ 
 
-[Dropzone UI](https://github.com/awatson1978/dropzone-ui)  
-[Offline Todos](http://offline-todos.meteor.com)  
-[Stripe Payments - Per Service ](https://github.com/awatson1978/payment-per-service)  
-[Stripe Payments - Subscriptions ](https://github.com/awatson1978/payment-subscription)  
-[Stripe Payments - Crowdsourcing Workflow](https://github.com/awatson1978/payment-crowdsourcing)  
-[Geolocated Parties](https://github.com/awatson1978/leaflet-parties)  
-[Leaderboard Nightwatch](https://github.com/awatson1978/leaderboard-nightwatch)  
-[Run Command Line Program From UI](https://github.com/awatson1978/exec-command-line-from-ui/tree/master)  
-[Clinical Support Forum](http://clinical-support-forum.meteor.com/)  
-[Clinical UI Crud List](http://clinical-ui-crud-list.meteor.com/)  
-[Clinical UI Crud Table](http://clinical-ui-crud-table.meteor.com/)  
-[Clinical UI Forms](http://clinical-ui-forms.meteor.com/)  
-[Clinical UI Boilerplate](http://clinical-ui-boilerplate.meteor.com/)  
-[Realtime Analytics Pipeline](http://realtime-analytics-pipeline.meteor.com/)  
-[Leaderboard Frameable](http://leaderboard-frameable.meteor.com)  
-[Leaderboard Testrunner](http://leaderboard-testrunner.meteor.com)  
-[Minimongo Table](https://minimongo-table.meteor.com)  
-[Drag and Drop](http://drag-and-drop.meteor.com/)  
-[Green Eggs and Spam](https://green-eggs-and-spam.meteor.com)  
-[Workflow Routing](http://workflow-routing.meteor.com/)  
-[Panel Layout](http://panel-layout.meteor.com/)  
-[Panel Layout Testrunner](http://panel-layout-testrunner.meteor.com/)  
-[REST API](http://rest-api.meteor.com/)  
-[REST API Testrunner](http://rest-api-testrunner.meteor.com/)    
-[GroupThink](http://groupthink.meteor.com/)  
-[Fonts & Calligraph](http://fonts.meteor.com/)    
-[Dictionary](http://dictionary.meteor.com/)  
-[Collabtionary](http://collabtionary.meteor.com/)  
-[Hubble - CRUD & Datasets](http://hubble.meteor.com/)  
-[Mobile Devices - iOS in Particular](https://github.com/awatson1978/cordova-phonegap)  
+| Live Demo     | Source|    Tests   |  Status  | Meteor Version  |
+| ------------- |:----------------:| ----------------| ---------------- | ---------------:|
+| [Panel Layout](https://panel-layout.meteor.com)  | [panel-layout](https://github.com/awatson1978/panel-layout) | 24 | ![travis-build](https://travis-ci.org/awatson1978/panel-layout.svg?branch=master)   |  1.0.3.1 |
+| [Minimongo Table](https://minimongo-table.meteor.com)  | [minimongo-table](https://github.com/awatson1978/minimongo-table) | 78 | ![travisci](https://travis-ci.org/awatson1978/minimongo-table.svg) |  1.0.3.1 |
+| [REST API](http://rest-api.meteor.com/)  | [rest-api](https://github.com/awatson1978/rest-api) | 10 | ![travisci](https://travis-ci.org/awatson1978/rest-api.svg?branch=master) | 1.0.3.1 |
+| [Rest Analytics Pipeline](http://rest-analytics-pipeline.meteor.com/)      | [rest-analytics-pipeline](https://github.com/awatson1978/rest-analytics-pipeline) | 52 | ![travis-build](https://travis-ci.org/awatson1978/rest-analytics-pipeline.svg?branch=master) | 1.0.3.1 |
+| [Fonts & Calligraphy](http://fonts.meteor.com/)   | [fonts-site](https://github.com/awatson1978/fonts-site) |  15  | ![travisci](https://travis-ci.org/awatson1978/fonts-site.svg?branch=master) | 1.0.3.1 |
+| [Geolocated Parties](https://github.com/awatson1978/leaflet-parties)   | [leaflet-parties](https://github.com/awatson1978/leaflet-parties) | 8 | ![travis-build](https://travis-ci.org/awatson1978/leaflet-parties.svg?branch=master) | 1.0.3.1 |
+| [Stripe - Subscriptions ](https://github.com/awatson1978/payment-subscription) | [payment-subscription](https://github.com/awatson1978/payment-subscription) |  7 |  ![travis-build](https://travis-ci.org/awatson1978/payment-subscription.svg?branch=master) | 1.0.3.1 |
+| [Medical Illustration Library](http://image-link-archive.meteor.com) | [image-link-archive](https://github.com/awatson1978/image-link-archive) | 7 | ![travis-build](https://travis-ci.org/awatson1978/image-link-archive.svg?branch=master) | 1.0.3.1 |
+| [Workflow Routing](http://workflow-routing.meteor.com/)  | [workflow-routing](https://github.com/awatson1978/workflow-routing) |  7 | ![travis-build](https://travis-ci.org/awatson1978/workflow-routing.svg?branch=master) | 1.0.3.1 |
+| [Weblog](http://clinical-ui-crud-list.meteor.com/)      | [clinical-weblog](https://github.com/awatson1978/clinical-ui-crud-list) |  7 | ![travis-build](https://travis-ci.org/awatson1978/clinical-weblog.svg?branch=master) | 1.0.3.1 |
+| [Dropzone UI](https://github.com/awatson1978/dropzone-ui) | [dropzone-ui](https://github.com/awatson1978/dropzone-ui) | 7 |  ![travis-build](https://travis-ci.org/awatson1978/dropzone-ui.svg?branch=master) | 1.0.3.1 | 
+| [Drag and Drop](http://drag-and-drop.meteor.com/)        | [drag-and-drop](https://github.com/awatson1978/drag-and-drop) | 7 | ![travis-build](https://travis-ci.org/awatson1978/drag-and-drop.svg?branch=master) | 1.0.3.1 |
+| [Green Eggs and Spam](https://green-eggs-and-spam.meteor.com)        | [green-eggs-and-spam](https://github.com/awatson1978/green-eggs-and-spam) | 7  | ![travis-build](https://travis-ci.org/awatson1978/green-eggs-and-spam.svg?branch=master) | 1.0.3.1 |
+| [Stripe - Per Service ](http://payment-per-service.meteor.com/)  | [payment-per-service](https://github.com/awatson1978/payment-per-service) | 7 | ![travis-build](https://travis-ci.org/awatson1978/payment-per-service.svg?branch=master) | 1.0.3.1 |
+| [Stripe - Crowdsourcing](https://github.com/awatson1978/payment-crowdsourcing) | [payment-crowdsourcing](https://github.com/awatson1978/payment-crowdsourcing) |  7 | ![travis-build](https://travis-ci.org/awatson1978/payment-crowdsourcing.svg?branch=master) | 1.0.3.1 |
+| [ActiveRecord Forms](http://clinical-ui-forms.meteor.com/)     | [clinical-ui-forms](https://github.com/awatson1978/clinical-ui-forms) | 7  | ![travis-build](https://travis-ci.org/awatson1978/clinical-ui-forms.svg?branch=master) | 0.6.5 |
+| [Dictionary](http://dictionary.meteor.com/)             | [dictionary](https://github.com/awatson1978/dictionary) |  7  | ![travis-build](https://travis-ci.org/awatson1978/dictionary.svg?branch=master) | 0.6.5 |
+| [Collabtionary](http://collabtionary.meteor.com/)       | [collabtionary](https://github.com/awatson1978/collabtionary)      |  7  | ![travis-build](https://travis-ci.org/awatson1978/collabtionary.svg?branch=master) | 0.6.5 |
+| [Hubble (Datasets Demo)](http://hubble.meteor.com/)   | [hubble](https://github.com/awatson1978/hubble)      |  7  | ![travis-build](https://travis-ci.org/awatson1978/hubble.svg?branch=master) | 1.0.3.1 |
+| [Run Command Line Script](https://github.com/awatson1978/exec-command-line-from-ui/tree/master) | [exec-commaind-line-from-ui](https://github.com/awatson1978/exec-command-line-from-ui) |  7 | ![travis-build](https://travis-ci.org/awatson1978/exec-command-line-from-ui.svg?branch=master) | 1.0.3.1 |
 
 
-####Meteor Architecture  
+
+========================================
+###Clinical Meteor Track  
+
+If you'd like to learn more, check out the Clinical Meteor Track project...  a version of Meteor designed for biomedical, clinical, and healthcare applications.  Check out the project page to learn more, and be aware that these two projects are being run in parallel.  
+
+http://clinical.meteor.com/
+
+========================================
+###Clinical Demos  
+Links to live versions of the examples associated with this cookbook.  
+ 
+
+| Live Demo     | Source|    Tests   |  Status  | Meteor Version  |
+| ------------- |:----------------:| ----------------| ---------------- | ---------------:|
+| [Clinical Checklists](http://clinical-checklists.meteor.com/) | [clinical-checklists](https://github.com/awatson1978/clinical-checklists) | 90+ | [![Build Status](https://travis-ci.org/awatson1978/clinical-checklists.svg?branch=master)](https://travis-ci.org/awatson1978/clinical-checklists)| 1.0.4 |
+| [Clinical Trials](http://clinical-trials.meteor.com/) | [clinical-trials](https://github.com/awatson1978/clinical-trials) | 800+ | ![travis-build](https://travis-ci.org/awatson1978/clinical-trials.svg?branch=master) | 0.9.4 |
+| [Clinical ActiveRecord](https://clinical-activerecord.meteor.com)  | [clinical-activerecord](https://github.com/awatson1978/clinical-activerecord) | 296 | ![travisci](https://travis-ci.org/awatson1978/clinical-activerecord.svg) |  1.0.3.1 |
+| [Clinical Scheduling](https://clinical-scheduling.meteor.com)   | [clinical-scheduling](https://github.com/awatson1978/clinical-scheduling) |  7 | ![Travis Build](https://travis-ci.org/awatson1978/clinical-scheduling.svg?branch=master) | 1.0.3.1 |
+| [Clinical Support Forum](http://clinical-support-forum.meteor.com/) | [clinical-support-forum](https://github.com/awatson1978/clinical-support-forum) | 7 | ![travis-build](https://travis-ci.org/awatson1978/clinical-support-forum.svg?branch=master) | 1.0.3.1 |
+| [Clinical Health Planner](http://senescence.meteor.com/) | [health-planner](https://github.com/awatson1978/health-planner) | 7 | ![travis-build](https://travis-ci.org/awatson1978/health-planner.svg?branch=master) | 0.8 |
+| [Clinical Workqueues](http://clinical-workqueues.meteor.com/) | [clinical-workqueues](https://github.com/awatson1978/clinical-workqueues) | 7 | ![travis-build](https://travis-ci.org/awatson1978/clinical-workqueues.svg?branch=master) | 0.6.5 |
+| [Biological Reductionism](http://reductionism.meteor.com/) | [reductionism](https://github.com/awatson1978/reductionism) | 7 | ![travis-build](https://travis-ci.org/awatson1978/reductionism.svg?branch=master) | 0.7 |
+| [Bioinformatics Sampler](http://reductionism.meteor.com/) | [reductionism](https://github.com/awatson1978/d3-flare-demo) | 7 | ![travis-build](https://travis-ci.org/awatson1978/d3-flare-demo.svg?branch=master) | 0.7 |
+
+========================================
+### Clinical:Meteor Packages
+
+| Source   | Interface | Meta | Scaffold | Component | Stable Version  |
+|:------------ | :-----------: |  :-------: | :--------: | :--------: | ------------- |
+[clinical:auto-resizing](https://github.com/awatson1978/clinical-auto-resizing)  | --- | --- | --- | --- | 0.0.1  |
+[clinical:barcode](https://github.com/awatson1978/clinical-barcode)  | --- | --- | --- | --- | 2.0.2  |
+[clinical:graphs](https://github.com/awatson1978/clinical-graphs)  | bootstrap3 | --- | --- | yes | 0.0.3  |
+[clinical:hipaa-audit-log](https://github.com/awatson1978/clinical-hipaa-audit-log) |  bootstrap3 | --- | yes | --- | 1.0.1 |
+[clinical:nightwatch](https://github.com/awatson1978/clinical-nightwatch) |  bootstrap3 | --- | --- | --- | 1.4.0 |
+[clinical:nvd3](https://github.com/awatson1978/clinical-nvd3)  | --- | --- | --- | --- | 0.0.3  |
+[clinical:sidebars](https://github.com/awatson1978/clinical-ui-sidebars)  | semantic | --- | --- | yes | 0.1.1  |
+[clinical:static-pages](https://github.com/awatson1978/clinical-static-pages)  | bootstrap3 | --- | yes | --- | 1.0.4|
+[clinical:ui-vocabulary](https://github.com/awatson1978/clinical-ui-vocabulary)  | semantic | --- | --- | --- | 1.0.5  |
+[clinical:ui-alert-panel](https://github.com/awatson1978/clinical-ui-alert-panel)  | bootstrap3 | yes | --- | yes | 1.0.5  |
+| [clinical:famous-dead-people](https://github.com/awatson1978/accounts-famous-dead-people)    | --- | --- | no | --- | 1.0.0  |
+| [clinical:hipaa-audit-log](https://github.com/awatson1978/clinical-hipaa-audit-log) |  bootstrap3 | yes | --- |  --- | --- | | clinical:stripe  | bootstrap3 | --- | yes | yes | ---  |
+| clinical:grays-anatomy  | --- | --- | --- | --- | ---  |
+| clinical:sesssion-extended-api   | --- | --- | --- | --- | ---  |
+
+
+========================================
+###Meteor Architecture  
 
 ![Meteor Architecture](https://raw.githubusercontent.com/awatson1978/meteor-cookbook/master/images/Meteor%20Architecture%20-%20Dev%20to%20Prod.jpg)  
+
+
+========================================
+###More Great Demos  
+
+
+| Live Demo     | Source|    Tests   |  Status  | Meteor Version  |
+| ------------- |:----------------:| ----------------| ---------------- | ---------------:|
+| [iTunes Library](http://itunes.meteor.com/album/291183)  | [reactconf](https://github.com/mitar/reactconf-2015-HYPE) | --- | --- |  1.0.3.1 |
+
+
+
+
+

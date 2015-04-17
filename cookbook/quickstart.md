@@ -1,4 +1,4 @@
-Meteor Quickstart Installation
+Meteor 1.0 Quickstart Installation
 ===========================================
 
 This quickstart is written for Mac OSX Mavericks, and is a bit more verbose than other installation instructions.  It should hopefully cover a few edge cases, such as setting your path, which can cause an installation to go awry.  
@@ -30,7 +30,13 @@ which npm
 # make sure npm is in your path
 sudo nano ~/.profile
   export PATH=$PATH:/usr/local/bin
- 
+ ````
+
+Meteorite Installation (Deprecated)
+===========================================
+Meteorite is mostly deprecated utility and package management system used in pre 0.9 days.  Nowadays, it's mostly only used for research, bleeding-edge development, and backwards compatibility for old apps.  If you haven't been a regular user of Meteroite, you probably don't need it.  
+
+````sh
 # install meteorite
 npm install -g meteorite
  
@@ -53,10 +59,10 @@ mrt --version
 ````
 
 
-
-
 Meteor Development Tools Quickstart
 ===========================================
+Here's the script the author uses when setting up a new development workstation.  It's certainly not the only environment setup script, and it's by no means authoritative.  It's simply what seems to work.
+
 
 ````sh
 # install stand-alone mongo with the gui installer
@@ -75,7 +81,6 @@ sudo nano ~/.profile
 # or install it to the global path
 sudo nano /etc/paths
   /usr/local/mongodb/bin
-  
 
 # create mongo database directory
 mkdir /data/
@@ -131,25 +136,23 @@ jshint .
 
 Test-Driven-Development Quickstart
 ===========================================
+Test-driven development is essential for building larger and more complex apps.  The following script will get you up-and-running with automated browser walkthroughs using the Nightwatch bridge to a Selenium Server.  Be aware that this script won't create tests for you.  You will need to create a tests/nightwatch directory with walkthroughs in it.
 
 ````sh
-# install selenium-nightwatch
-a$ cd helloworld
-a$ mrt add jasmine-unit
-a$ sudo mrt add selenium-nightwatch
-a$ sudo packages/selenium-nightwatch/setup.sh
-   2
-a$ sudo mrt
-b$ sudo ./run_nightwatch.js
+# install clinical-nightwatch
+terminal-a$ cd helloworld
+terminal-a$ meteor add clinical:nightwatch
 
-# install velocity
+# In the same way that we run 'meteor mongo' in a separate terminal while our application is already running,
+# we want to open up a new terminal, and run nightwatch
+terminal-b$ ln -s .meteor/local/build/programs/server/assets/packages/clinical_nightwatch/launch_nightwatch_from_app_root.sh run_nightwatch.sh
+terminal-b$ sudo chmod +x run_nightwatch.sh
+terminal-b$ sudo ./run_nightwatch.sh
 
-a$ cd helloworld
-a$ mrt add velocity-quick-start
-a$ mrt
+# add some tests and repeat until passing green...
+terminal-b$ sudo ./run_nightwatch.sh
 
-# install velocity html reporter, if you wish
-
-a$ mrt add velocity-html-reporter
+# as you develop tests, you might want to do something clever like pass in arguments and run specific tests
+terminal-b$ sudo ./run_nightwatch.sh -t tests/nightwatch/walkthrough.js
 
 ````

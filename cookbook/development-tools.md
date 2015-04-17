@@ -5,7 +5,7 @@ You're going to need to set up a development environment if you want to program 
 ===============================================================
 #### Integrated Development Environments
 
-Well, you're going to need to select an Integrated Development Environment (IDE), configure it so it works with Meteor, and set up debugging and profiling utilities.  Meteor Cookbook's recommendation is to start with either Atom or Webstorm.  
+Start by selecting an Integrated Development Environment (IDE), configuring it so it works with Meteor, and setting up debugging and profiling utilities.  Meteor Cookbook's recommendation in selecting an IDE is the following: go with WebStorm if you want the most full-featured team tools currently available; but go with Atom if you want the most advanced tool for the most bleeding-edge isomorphic development.
 
 [Atom](http://www.atom.io) - Javascript IDE that can fully leverage Meteor's isomorphic javascript framework.  Recommended.  
 [WebStorm](http://www.jetbrains.com/webstorm/) - The most full featured IDE currently available for Meteor.    
@@ -14,11 +14,10 @@ Well, you're going to need to select an Integrated Development Environment (IDE)
 [Cloud9](https://c9.io/)  - The newest Cloud Development offering that supports Meteor, with a [tutorial](http://simpleprogrammer.com/2014/10/13/getting-started-meteor-tutorial-cloud/).  
 [MeteorPad](http://meteorpad.com/pad/J5Ls2Fc8imyXnz8yM)  - Lightweight cloud editing for mobile prototyping.  
 
-
 ===============================================================
 #### Database Tools
 
-Once you get past the 'Hello World' app, you'll need to start paying attention to your collection and document schemas, and will need some tools for managing your database.  Start with Robomongo.
+Once you get a 'Hello World' app running, you'll need to start paying attention to your collection and document schemas, and will need some tools for managing your database.  Start with Robomongo.  
 
 [Robomongo](http://robomongo.org/) - A sweet, sweet database management tool.  Highly recommended.   
 [JSON Generator](http://www.json-generator.com/) - Invaluable utility for generating sample datasets.   
@@ -39,7 +38,12 @@ Developing Meteor apps usually means testing multi-client reactivity, which requ
 [Slack](https://slack.com/) - Collaborative project tracking feeds.    
 [MadEye](http://madeye.io/) - Collaborative web editor.    
 [Screenhero](http://screenhero.com) - Collaborative screen sharing.  
-[InVision](https://projects.invisionapp.com/d/main#/projects) - Collaborative wireframing and prototyping.
+[InVision](https://projects.invisionapp.com/d/main#/projects) - Collaborative wireframing and prototyping.  
+[Proto.io](https://proto.io/)  Wireframing and prototyping.  
+[HuBoard](https://huboard.com) - Kanban boards for GitHub.   
+[Zapier](https://zapier.com/) - The best apps.  Together.  
+[Teamwork.com](https://www.teamwork.com/) - Traditional project management & gannt charts.   
+[Sprint.ly](https://sprint.ly/) - More kanban boards and sprint planning that works with GitHub.  
 
 ===============================================================
 #### REST Clients  

@@ -10,15 +10,14 @@ MyCollection = new Meteor.Collection('mycollection', {idGeneration : 'MONGO'});
 **Q:  How do I insert an { array | date | boolean | session } into a document record?**  
 This example should mostly cover it:
 
-````
+````js
 Todos.insert({
-  text: text,
-  gannt.dependency: dependency,
-  gannt.parent: parent,
-  list_id: Session.get('list_id'),
-  done: false,
-  timestamp: (new Date()).getTime(),
-  tags: tag ? [tag] : []
+  text: "foo",                        // string
+  value: parseInt(2),                 // number
+  list_id: Session.get('list_id'),    // session variable
+  done: false,                        // boolean
+  timestamp: (new Date()).getTime(),  // timestamp
+  tags: []                            //array
 });
 ````
 

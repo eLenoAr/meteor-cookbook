@@ -3,7 +3,7 @@ Refactoring Patterns
 
 
 #### Combining Template Helpers
-Begin with a number of helper functions...
+The following refactoring pattern is particularly important for people with pre 0.8 Meteor apps.  Since Blaze, we've no longer been allowed to attach helper functions directly on the template object.  Instead, we have a ``helpers()`` method which accepts a JSON object which we decorate with methods.  So, to upgrade from <0.8 to Meteor 1.0, we need to refactor our helper functions into a JSON object.  Here's how:
 ````js
 // before refactoring
 Template.promptModal.getPromptTitle = function(){
@@ -47,7 +47,7 @@ Template.promptModal.helpers({
   }
 });
 ````
-And we now avoid having to write ``Template.promptModal`` over and over and over again.  It's a minor refactoring, but it keeps things tidy.
+And we now avoid having to write ``Template.promptModal`` over and over and over again, and we're now ready for the latest versions of the Blaze rendering engine.
 
 #### Extracting and Registering a Template Helper
 Now lets say we find a helper that we're using in different templates...
@@ -70,7 +70,7 @@ Template.confirmModal.helpers({
 We can extract that function, and share it across **all** our templates, by doing the following:  
 ````js
 // after refactoring
-UI.registerHelper('getUserName', function(){
+Template.registerHelper('getUserName', function(){
   return Meteor.user().profile.name;
 });
 ````

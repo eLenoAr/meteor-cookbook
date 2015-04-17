@@ -4,6 +4,7 @@ Data Validation
 
 
 
+
 ------------------------------ 
 #### Match API  
 
@@ -55,7 +56,8 @@ Template.samplePage.events({
     if($('#fooInput').val() === ""){
       Session.set('fooValidation', null);
     }else{
-      if(Campaigns.find({name: $('#fooInput').val()}).count() > 0){
+      // we check if there is another post with the same title
+      if(Posts.find({title: $('#fooInput').val()}).count() > 0){
         Session.set('fooValidation', true);
       }else{
         Session.set('fooValidation', false);
@@ -85,3 +87,12 @@ Template.samplePage.helpers({
 });
 
 ````
+
+
+------------------------------ 
+#### Regular Expressions  
+
+[Regular Expression Tutorial](http://www.regular-expressions.info/tutorial.html)  
+[Regular Expression Cheat Sheet](http://www.cheatography.com/davechild/cheat-sheets/regular-expressions/)  
+[Regular Expressions in Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)  
+[8 Regular Expressions You Should Know](http://code.tutsplus.com/tutorials/8-regular-expressions-you-should-know--net-6149)  
